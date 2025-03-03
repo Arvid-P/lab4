@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ConvolveOp;
 import java.util.ArrayList;
 import lab2.Car;
 import lab2.Volvo240;
 import lab2.Scania;
 import lab2.Saab95;
-import lab2.Carcarrier;
 import lab2.Mechanic;
 
 
@@ -17,7 +15,7 @@ import lab2.Mechanic;
  * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements graphicButtons {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -69,7 +67,10 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
-                checkbound(car, volvoMechanic);
+                checkLeftBound(car);
+                checkRightBound(car);
+                checkInMechanicBounds(car, volvoMechanic);
+                checkCarInMechanicState(car);
                 car.move();
                 int x = (int) Math.round(car.getXPos());
                 int y = (int) Math.round(car.getYPos());
@@ -80,33 +81,33 @@ public class CarController {
         }
     }
     // Calls the gas method for each car once
-    void gas(int amount) {
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (Car car : cars) {
             car.gas(gas);
         }
     }
 
-    void brake(int amount) {
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Car car : cars) {
             car.brake(brake);
         }
     }
 
-    void startEngine() {
+    public void startEngine() {
         for (Car car : cars) {
             car.startEngine();
         }
     }
 
-    void stopEngine() {
+    public void stopEngine() {
         for (Car car : cars) {
             car.stopEngine();
         }
     }
 
-    void saabTurboOn() {
+    public void saabTurboOn() {
         for (Car car : cars) {
             if(car instanceof Saab95){
                 ((Saab95) car).setTurboOn();
@@ -115,7 +116,7 @@ public class CarController {
         }
     }
 
-    void saabTurboOff() {
+    public void saabTurboOff() {
         for (Car car : cars) {
             if(car instanceof Saab95){
                 ((Saab95) car).setTurboOff();
@@ -123,7 +124,7 @@ public class CarController {
         }
     }
 
-    void liftBed() {
+    public void liftBed() {
         for (Car car : cars) {
             if (car instanceof Scania) {
                 ((Scania) car).setRampUp();
@@ -131,7 +132,7 @@ public class CarController {
         }
     }
 
-    void lowerBed() {
+    public void lowerBed() {
         for (Car car : cars) {
             if (car instanceof Scania) {
                 ((Scania) car).setRampDown();
@@ -139,15 +140,17 @@ public class CarController {
         }
     }
 
-    public void checkbound(Car car, Mechanic<Volvo240> mechanic){
-
-        if(car.getXPos() < 0){
+    public void checkLeftBound(Car car){
+        if(car.getXPos() < 0) {
             car.stopEngine();
             car.turnRight();
             car.turnRight();
             car.startEngine();
-            car.setXPos(Math.max(car.getXPos(),0));
+            car.setXPos(Math.max(car.getXPos(), 0));
         }
+    }
+
+    public void checkRightBound(Car car) {
         if (car.getXPos() > 700){
             car.stopEngine();
             car.turnRight();
@@ -155,7 +158,9 @@ public class CarController {
             car.startEngine();
             car.setXPos(Math.min(car.getXPos(),700));
         }
+    }
 
+    public void checkInMechanicBounds(Car car,Mechanic<Volvo240> mechanic) {
         if (car.getXPos() >= mechanic.getXPos()
                 && car.getXPos() <= mechanic.getXPos() + 100
                 && car.getYPos() >= mechanic.getYPos()
@@ -164,7 +169,9 @@ public class CarController {
             mechanic.addCar((Volvo240) car);
             car.setMechanicState(true);
         }
+    }
 
+    public void checkCarInMechanicState(Car car) {
         if (car.getMechanicState()) {
             car.setCurrentSpeed(0);
         }

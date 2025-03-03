@@ -2,7 +2,7 @@
 package lab2;
 import java.awt.*;
 
-public abstract class Car implements Movable {
+public abstract class Car implements Movable, CarEngine {
 
     private final int nrDoors; // Number of doors on the car
     protected double enginePower; // Engine power of the car
@@ -32,20 +32,18 @@ public abstract class Car implements Movable {
         return enginePower;
     }
 
+    public void setColor(Color clr){
+        color = clr;
+    }
+
+    public Color getColor() {return color;}
+
     public double getCurrentSpeed(){
         return currentSpeed;
     }
 
-    public Color getColor(){
-        return color;
-    }
-
     public void setCurrentSpeed(double currentSpeed){
         this.currentSpeed = currentSpeed;
-    }
-
-    public void setColor(Color clr){
-        color = clr;
     }
 
     public void startEngine(){
@@ -139,6 +137,7 @@ public abstract class Car implements Movable {
     public double getXPos(){
         return xPos;
     }
+
     public double getYPos(){
         return yPos;
     }
@@ -158,6 +157,7 @@ public abstract class Car implements Movable {
     public void setMechanicState(boolean state) {
         carInmechanic = state;
     }
+
     public boolean getMechanicState(){
         return carInmechanic;
     }
