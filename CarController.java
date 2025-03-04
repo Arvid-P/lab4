@@ -26,6 +26,7 @@ public class CarController implements graphicButtons {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
+
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
 
@@ -34,7 +35,9 @@ public class CarController implements graphicButtons {
 
     public static void main(String[] args) {
         // Instance of this class
+
         CarController cc = new CarController();
+
 
         cc.cars.add(new Volvo240());
         cc.cars.add(new Scania());
@@ -50,7 +53,6 @@ public class CarController implements graphicButtons {
 
         cc.volvoMechanic.setXPos(300);
         cc.volvoMechanic.setYPos(0);
-
 
 
 
