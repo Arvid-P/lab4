@@ -38,12 +38,13 @@ public class CarController implements graphicButtons {
 
         CarController cc = new CarController();
 
+        CarMechFactory cmf = new CarMechFactory();
 
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Scania());
-        cc.cars.add(new Saab95());
+        cc.cars.add(cmf.createVolvo());
+        cc.cars.add(cmf.createScania());
+        cc.cars.add(cmf.createSaab95());
 
-        cc.volvoMechanic = new Mechanic<>(3);
+        cc.volvoMechanic = cmf.createVolvoMechanic(3);
 
         double y = 0;
         for(Car car : cc.cars){
@@ -162,7 +163,7 @@ public class CarController implements graphicButtons {
         }
     }
 
-    public void checkInMechanicBounds(Car car,Mechanic<Volvo240> mechanic) {
+    public void checkInMechanicBounds(Car car, Mechanic<Volvo240> mechanic) {
         if (car.getXPos() >= mechanic.getXPos()
                 && car.getXPos() <= mechanic.getXPos() + 100
                 && car.getYPos() >= mechanic.getYPos()
