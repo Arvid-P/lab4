@@ -31,26 +31,32 @@ public class CarController implements graphicButtons {
     ArrayList<Car> cars = new ArrayList<>();
 
     private Mechanic<Volvo240> volvoMechanic;
-    //methods:
 
+    private int initCarYPos = 0;
+
+    private CarMechFactory cmf;
+
+    private int maxCarSize = 7;
+
+    //methods:
     public static void main(String[] args) {
         // Instance of this class
 
         CarController cc = new CarController();
 
-        CarMechFactory cmf = new CarMechFactory();
+        cc.cmf = new CarMechFactory();
 
-        cc.cars.add(cmf.createVolvo());
-        cc.cars.add(cmf.createScania());
-        cc.cars.add(cmf.createSaab95());
+        //cc.cars.add(cc.cmf.createVolvo());
+        //cc.cars.add(cc.cmf.createScania());
+        //cc.cars.add(cc.cmf.createSaab95());
 
-        cc.volvoMechanic = cmf.createVolvoMechanic(3);
+        cc.volvoMechanic = cc.cmf.createVolvoMechanic(3);
 
-        double y = 0;
-        for(Car car : cc.cars){
-            car.setYPos(y);
-            y += 100;
-        }
+        //double y = 0;
+        //for(Car car : cc.cars){
+        //    car.setYPos(y);
+        //    y += 100;
+        //}
 
         cc.volvoMechanic.setXPos(300);
         cc.volvoMechanic.setYPos(0);
@@ -69,15 +75,15 @@ public class CarController implements graphicButtons {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Car car : cars) {
-                checkLeftBound(car);
-                checkRightBound(car);
-                checkInMechanicBounds(car, volvoMechanic);
-                checkCarInMechanicState(car);
-                car.move();
-                int x = (int) Math.round(car.getXPos());
-                int y = (int) Math.round(car.getYPos());
-                frame.drawPanel.moveit(car, x, y);
+            for (int i = 0; i < cars.size(); i++) {
+                checkLeftBound(cars.get(i));
+                checkRightBound(cars.get(i));
+                checkInMechanicBounds(cars.get(i), volvoMechanic);
+                checkCarInMechanicState(cars.get(i));
+                cars.get(i).move();
+                int x = (int) Math.round(cars.get(i).getXPos());
+                int y = (int) Math.round(cars.get(i).getYPos());
+                frame.drawPanel.moveit(i, x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -143,6 +149,47 @@ public class CarController implements graphicButtons {
         }
     }
 
+    public void addVolvoCar() {
+        if (cars.size() < maxCarSize) {
+            cars.add(cmf.createVolvo());
+            if (cars != null && !cars.isEmpty()) {
+                cars.get(cars.size() - 1).setYPos(initCarYPos);
+                frame.drawPanel.addCarRepresentation(cars.get(cars.size() - 1), initCarYPos);
+            }
+            initCarYPos += 100;
+        }
+    }
+
+    public void addSaabCar() {
+        if (cars.size() < maxCarSize) {
+            cars.add(cmf.createSaab95());
+            if (cars != null && !cars.isEmpty()) {
+                cars.get(cars.size() - 1).setYPos(initCarYPos);
+                frame.drawPanel.addCarRepresentation(cars.get(cars.size() - 1), initCarYPos);
+            }
+            initCarYPos += 100;
+        }
+    }
+
+    public void addScaniaCar() {
+        if (cars.size() < maxCarSize) {
+            cars.add(cmf.createScania());
+            if (cars != null && !cars.isEmpty()) {
+                cars.get(cars.size() - 1).setYPos(initCarYPos);
+                frame.drawPanel.addCarRepresentation(cars.get(cars.size() - 1), initCarYPos);
+            }
+            initCarYPos += 100;
+        }
+    }
+
+    public void removeCar() {
+        if (cars != null && !cars.isEmpty()) {
+            cars.removeLast();
+            frame.drawPanel.removeCarRepresentation();
+            initCarYPos -= 100;
+        }
+    }
+
     public void checkLeftBound(Car car){
         if(car.getXPos() < 0) {
             car.stopEngine();
@@ -154,12 +201,12 @@ public class CarController implements graphicButtons {
     }
 
     public void checkRightBound(Car car) {
-        if (car.getXPos() > 700){
+        if (car.getXPos() > 900){
             car.stopEngine();
             car.turnRight();
             car.turnRight();
             car.startEngine();
-            car.setXPos(Math.min(car.getXPos(),700));
+            car.setXPos(Math.min(car.getXPos(),900));
         }
     }
 
@@ -167,7 +214,7 @@ public class CarController implements graphicButtons {
         if (car.getXPos() >= mechanic.getXPos()
                 && car.getXPos() <= mechanic.getXPos() + 100
                 && car.getYPos() >= mechanic.getYPos()
-                && car.getYPos() <= mechanic.getYPos() + 100
+                && car.getYPos() <= mechanic.getYPos() + 50
                 && car instanceof Volvo240) {
             mechanic.addCar((Volvo240) car);
             car.setMechanicState(true);

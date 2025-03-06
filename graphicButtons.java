@@ -12,5 +12,9 @@ public interface graphicButtons {
     void saabTurboOff();
     void liftBed();
     void lowerBed();
+    void addVolvoCar();
+    void addSaabCar();
+    void addScaniaCar();
+    void removeCar();
 
 }

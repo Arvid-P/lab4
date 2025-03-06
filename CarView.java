@@ -14,11 +14,11 @@ import java.awt.event.ActionListener;
  **/
 
 public class CarView extends JFrame{
-    private static final int X = 800;
-    private static final int Y = 800;
+    private static final int X = 1000;
+    private static final int Y = 1000;
 
     // The controller member
-    CarController carC;
+    graphicButtons carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -36,11 +36,16 @@ public class CarView extends JFrame{
     JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
 
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
+    JButton addVolvoButton = new JButton("Add Volvo");
+    JButton addSaabButton = new JButton("Add Saab");
+    JButton addScaniaButton = new JButton("Add Scania");
+    JButton removeCarButton = new JButton("Remove car");
+
+    JButton startButton = new JButton("Start all");
+    JButton stopButton = new JButton("Stop all");
 
     // Constructor
-    public CarView(String framename, CarController cc){
+    public CarView(String framename, graphicButtons cc){
         this.carC = cc;
         initComponents(framename);
     }
@@ -95,23 +100,28 @@ public class CarView extends JFrame{
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
         controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
+        controlPanel.add(addVolvoButton, 3);
+        controlPanel.add(addSaabButton, 4);
+        controlPanel.add(brakeButton, 5);
+        controlPanel.add(turboOffButton, 6);
+        controlPanel.add(lowerBedButton, 7);
+        controlPanel.add(addScaniaButton, 8);
+        controlPanel.add(removeCarButton, 9);
+
+        controlPanel.setPreferredSize(new Dimension((X/2)+104, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X/5-15,200));
+        startButton.setPreferredSize(new Dimension(X/5-62,200));
         this.add(startButton);
 
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-15,200));
+        stopButton.setPreferredSize(new Dimension(X/5-62,200));
         this.add(stopButton);
     }
 
@@ -174,6 +184,31 @@ public class CarView extends JFrame{
                 carC.lowerBed();
             }
         });
+
+        addVolvoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.addVolvoCar(); }
+        });
+
+        addSaabButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.addSaabCar(); }
+
+        });
+
+        addScaniaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.addScaniaCar(); }
+        });
+
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.removeCar();
+            }
+        });
+
+
 
     }
 
