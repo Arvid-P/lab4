@@ -19,7 +19,7 @@ public class CarController implements graphicButtons {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
+    private final int delay = 10;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
     private Timer timer = new Timer(delay, new TimerListener());
@@ -46,22 +46,10 @@ public class CarController implements graphicButtons {
 
         cc.cmf = new CarMechFactory();
 
-        //cc.cars.add(cc.cmf.createVolvo());
-        //cc.cars.add(cc.cmf.createScania());
-        //cc.cars.add(cc.cmf.createSaab95());
-
         cc.volvoMechanic = cc.cmf.createVolvoMechanic(3);
-
-        //double y = 0;
-        //for(Car car : cc.cars){
-        //    car.setYPos(y);
-        //    y += 100;
-        //}
 
         cc.volvoMechanic.setXPos(300);
         cc.volvoMechanic.setYPos(0);
-
-
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);

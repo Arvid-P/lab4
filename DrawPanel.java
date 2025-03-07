@@ -19,16 +19,13 @@ public class DrawPanel extends JPanel{
     // Just a single image, TODO: Generalize
     BufferedImage volvo240Image;
     // To keep track of a single car's position
-    //Point volvoPoint = new Point(0,0);
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,0);
 
     BufferedImage scaniaImage;
-    //Point scaniaPoint = new Point(0, 100);
 
     BufferedImage saab95Image;
-    //Point saab95Point = new Point(0,200);
 
     void addCarRepresentation(Car car, int y){
         if (car.getClass() == Saab95.class) {
@@ -50,15 +47,13 @@ public class DrawPanel extends JPanel{
     void removeCarRepresentation(){
         carPoints.removeLast();
         carImages.removeLast();
-
+        repaint();
     }
 
     // TODO: Make this general for all cars
     void moveit(int index, int x, int y){
-
         carPoints.get(index).x = x;
         carPoints.get(index).y = y;
-
     }
 
     // Initializes the panel and reads the images
@@ -95,10 +90,5 @@ public class DrawPanel extends JPanel{
             g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null);
         }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
-
-
-        //g.drawImage(volvo240Image, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
-        //g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
-        //g.drawImage(saab95Image, saab95Point.x, saab95Point.y, null);
     }
 }

@@ -108,20 +108,20 @@ public class CarView extends JFrame{
         controlPanel.add(addScaniaButton, 8);
         controlPanel.add(removeCarButton, 9);
 
-        controlPanel.setPreferredSize(new Dimension((X/2)+104, 200));
+        controlPanel.setPreferredSize(new Dimension((X/2)+120, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X/5-62,200));
+        startButton.setPreferredSize(new Dimension(X/5-60,200));
         this.add(startButton);
 
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-62,200));
+        stopButton.setPreferredSize(new Dimension(X/5-60,200));
         this.add(stopButton);
     }
 
