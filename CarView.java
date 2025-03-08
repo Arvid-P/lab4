@@ -2,8 +2,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -18,7 +16,7 @@ public class CarView extends JFrame{
     private static final int Y = 1000;
 
     // The controller member
-    graphicButtons carC;
+
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -45,8 +43,8 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all");
 
     // Constructor
-    public CarView(String framename, graphicButtons cc){
-        this.carC = cc;
+    public CarView(String framename){
+
         initComponents(framename);
     }
 
@@ -62,7 +60,6 @@ public class CarView extends JFrame{
 
         initAddButtons();
 
-        initAddActionListeners();
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
@@ -125,91 +122,6 @@ public class CarView extends JFrame{
         this.add(stopButton);
     }
 
-    private void initAddActionListeners() {
 
-        // This actionListener is for the gas button only
-        // TODO: Create more for each component as necessary
-        gasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
-            }
-        });
-
-        brakeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.brake(gasAmount);
-            }
-        });
-
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.startEngine();
-            }
-        });
-
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.stopEngine();
-            }
-        });
-
-        turboOnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.saabTurboOn();
-            }
-        });
-
-        turboOffButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.saabTurboOff();
-            }
-        });
-
-        liftBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.liftBed();
-            }
-        });
-
-        lowerBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.lowerBed();
-            }
-        });
-
-        addVolvoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.addVolvoCar(); }
-        });
-
-        addSaabButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.addSaabCar(); }
-
-        });
-
-        addScaniaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.addScaniaCar(); }
-        });
-
-        removeCarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.removeCar();
-            }
-        });
-
-
-
-    }
 
 }

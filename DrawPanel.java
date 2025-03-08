@@ -12,7 +12,7 @@ import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel extends JPanel implements ModelObserver{
     ArrayList<Point> carPoints = new ArrayList<Point>();
     ArrayList<BufferedImage> carImages = new ArrayList<BufferedImage>();
 
@@ -27,7 +27,7 @@ public class DrawPanel extends JPanel{
 
     BufferedImage saab95Image;
 
-    void addCarRepresentation(Car car, int y){
+    public void addCarRepresentation(Car car, int y){
         if (car.getClass() == Saab95.class) {
             carPoints.add(new Point(0, y));
             carImages.add(saab95Image);
@@ -44,14 +44,14 @@ public class DrawPanel extends JPanel{
         }
     }
 
-    void removeCarRepresentation(){
+    public void removeCarRepresentation(){
         carPoints.removeLast();
         carImages.removeLast();
         repaint();
     }
 
     // TODO: Make this general for all cars
-    void moveit(int index, int x, int y){
+    public void moveit(int index, int x, int y){
         carPoints.get(index).x = x;
         carPoints.get(index).y = y;
     }
