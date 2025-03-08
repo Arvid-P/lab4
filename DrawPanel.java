@@ -13,19 +13,16 @@ import javax.swing.*;
 // This panel represents the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel implements ModelObserver{
-    ArrayList<Point> carPoints = new ArrayList<Point>();
-    ArrayList<BufferedImage> carImages = new ArrayList<BufferedImage>();
 
-    // Just a single image, TODO: Generalize
-    BufferedImage volvo240Image;
-    // To keep track of a single car's position
+    private ArrayList<Point> carPoints = new ArrayList<Point>();
+    private ArrayList<BufferedImage> carImages = new ArrayList<BufferedImage>();
 
-    BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(300,0);
+    private BufferedImage volvoWorkshopImage;
+    private Point volvoWorkshopPoint = new Point(300,0);
 
-    BufferedImage scaniaImage;
-
-    BufferedImage saab95Image;
+    private BufferedImage volvo240Image;
+    private BufferedImage scaniaImage;
+    private BufferedImage saab95Image;
 
     public void addCarRepresentation(Car car, int y){
         if (car.getClass() == Saab95.class) {

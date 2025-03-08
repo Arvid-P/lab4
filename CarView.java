@@ -1,3 +1,5 @@
+import lab2.Car;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -14,9 +16,6 @@ import java.awt.*;
 public class CarView extends JFrame{
     private static final int X = 1000;
     private static final int Y = 1000;
-
-    // The controller member
-
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -44,12 +43,9 @@ public class CarView extends JFrame{
 
     // Constructor
     public CarView(String framename){
-
         initComponents(framename);
     }
 
-    // Sets everything in place and fits everything
-    // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
 
         this.setTitle(title);
@@ -59,7 +55,6 @@ public class CarView extends JFrame{
         this.add(drawPanel);
 
         initAddButtons();
-
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
@@ -121,7 +116,5 @@ public class CarView extends JFrame{
         stopButton.setPreferredSize(new Dimension(X/5-60,200));
         this.add(stopButton);
     }
-
-
 
 }

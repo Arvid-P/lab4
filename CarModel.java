@@ -11,7 +11,7 @@ import lab2.Mechanic;
 
 /*
  * This class represents the Controller part in the MVC pattern.
- * It's responsibilities is to listen to the View and responds in a appropriate manner by
+ * Its responsibilities is to listen to the View and responds in an appropriate manner by
  * modifying the model state and the updating the view.~
  */
 
@@ -24,9 +24,6 @@ public class CarModel  {
     // each step between delays.
     protected Timer timer = new Timer(delay, new TimerListener());
 
-    // The frame that represents this instance View of the MVC pattern
-   ;
-
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
 
@@ -38,9 +35,7 @@ public class CarModel  {
 
     private int maxCarSize = 7;
 
-    ModelObserver mo;
-    //methods:
-
+    private ModelObserver mo;
 
     /* Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
@@ -52,6 +47,7 @@ public class CarModel  {
                 checkRightBound(cars.get(i));
                 checkInMechanicBounds(cars.get(i), volvoMechanic);
                 checkCarInMechanicState(cars.get(i));
+
                 cars.get(i).move();
                 int x = (int) Math.round(cars.get(i).getXPos());
                 int y = (int) Math.round(cars.get(i).getYPos());
@@ -62,7 +58,9 @@ public class CarModel  {
         }
     }
 
-
+    public void addObserver(ModelObserver dp) {
+        this.mo = dp;
+    }
 
     // Calls the gas method for each car once
     public void gas(int amount) {

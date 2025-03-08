@@ -4,22 +4,14 @@ import java.awt.event.ActionListener;
 
 public class CarController {
 
-
-
-
     CarModel cm;
     CarView cv;
 
-
-
-
     public CarController(CarView cv, CarModel cm){
-
         this.cv = cv;
         this.cm = cm;
 
         initAddActionListeners();
-
     }
 
     public void initAddActionListeners() {
